@@ -10,6 +10,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import {Link} from 'react-router-dom';
+import AddCircle from '@material-ui/icons/AddCircle'
 
 export const mainListItems = (
     <div>
@@ -21,11 +22,18 @@ export const mainListItems = (
         </ListItem>
         <Link to={'/orders'}>
             <ListItem button>
-
                 <ListItemIcon>
                     <ShoppingCartIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Orders"/>
+            </ListItem>
+        </Link>
+        <Link to={'/add'}>
+            <ListItem button>
+                <ListItemIcon>
+                    <AddCircle/>
+                </ListItemIcon>
+                <ListItemText primary="Add Inventory Items"/>
             </ListItem>
         </Link>
         <ListItem button>
