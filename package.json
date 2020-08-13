@@ -5,6 +5,8 @@
   "dependencies": {
     "@codewithdan/observable-store": "^2.2.11",
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,7 +14,10 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-reactive-form": "^1.0.32",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "recharts": "^1.8.5",
     "rxjs": "^6.6.2"
   },
   "scripts": {
