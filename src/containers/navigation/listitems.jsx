@@ -9,38 +9,50 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import {Link} from 'react-router-dom';
+import AddCircle from '@material-ui/icons/AddCircle'
 
 export const mainListItems = (
     <div>
         <ListItem button>
             <ListItemIcon>
-                <DashboardIcon />
+                <DashboardIcon/>
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Dashboard"/>
+        </ListItem>
+        <Link to={'/orders'}>
+            <ListItem button>
+                <ListItemIcon>
+                    <ShoppingCartIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Orders"/>
+            </ListItem>
+        </Link>
+        <Link to={'/add'}>
+            <ListItem button>
+                <ListItemIcon>
+                    <AddCircle/>
+                </ListItemIcon>
+                <ListItemText primary="Add Inventory Items"/>
+            </ListItem>
+        </Link>
+        <ListItem button>
+            <ListItemIcon>
+                <PeopleIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Customers"/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
-                <ShoppingCartIcon />
+                <BarChartIcon/>
             </ListItemIcon>
-            <ListItemText primary="Orders" />
+            <ListItemText primary="Reports"/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
-                <PeopleIcon />
+                <LayersIcon/>
             </ListItemIcon>
-            <ListItemText primary="Customers" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Reports" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <LayersIcon />
-            </ListItemIcon>
-            <ListItemText primary="Integrations" />
+            <ListItemText primary="Integrations"/>
         </ListItem>
     </div>
 );
@@ -50,21 +62,21 @@ export const secondaryListItems = (
         <ListSubheader inset>Saved reports</ListSubheader>
         <ListItem button>
             <ListItemIcon>
-                <AssignmentIcon />
+                <AssignmentIcon/>
             </ListItemIcon>
-            <ListItemText primary="Current month" />
+            <ListItemText primary="Current month"/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
-                <AssignmentIcon />
+                <AssignmentIcon/>
             </ListItemIcon>
-            <ListItemText primary="Last quarter" />
+            <ListItemText primary="Last quarter"/>
         </ListItem>
         <ListItem button>
             <ListItemIcon>
-                <AssignmentIcon />
+                <AssignmentIcon/>
             </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
+            <ListItemText primary="Year-end sale"/>
         </ListItem>
     </div>
 );

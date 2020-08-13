@@ -6,6 +6,8 @@ import ProtectedRoute from './protected-route';
 import NotFound from "../shared/404/not-found"
 import Auth from "../containers/auth/auth"
 import Dashboard from "../containers/navigation/dashboard";
+import CardListComponent from "../component/card-list/card-list.component";
+import AddInventoryItemComponent from "../component/add-inventory-items/add-inventory-items.component";
 
 class Routes extends React.Component {
     render() {
@@ -18,6 +20,8 @@ class Routes extends React.Component {
                         </Route>
                         <Route path="/404" component={NotFound}/>
                         <ProtectedRoute path="/home" component={Dashboard}/>
+                        <ProtectedRoute path="/orders" component={CardListComponent}/>
+                        <ProtectedRoute path="/add" component={AddInventoryItemComponent}/>
                         <ProtectedRoute path="/signin" component={Auth}/>
                     </Suspense>
                 </div>
