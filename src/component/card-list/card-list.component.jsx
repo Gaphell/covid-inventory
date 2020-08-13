@@ -15,7 +15,7 @@ class CardListComponent extends React.Component {
             this.setState({
                 orders: this.state.orders.concat(ORDERS)
             })
-        }, 1000);
+        }, 1500);
 
     };
 
