@@ -6,7 +6,7 @@ import ProtectedRoute from './protected-route';
 import NotFound from "../shared/404/not-found"
 import SignIn from "../containers/auth/login/signin"
 import Dashboard from "../containers/navigation/dashboard";
-
+import CardListComponent from "../component/card-list/card-list.component";
 class Routes extends React.Component {
     render() {
         return (
@@ -16,6 +16,7 @@ class Routes extends React.Component {
                         <Route path="/404" component={NotFound}/>
                         <ProtectedRoute path="/home" component={Dashboard}/>
                         <ProtectedRoute path="/signin" component={SignIn}/>
+                        <ProtectedRoute path="/orders" component={CardListComponent}/>
                     </Suspense>
                 </div>
             </BrowserRouter>
