@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs'
-import * as axios from 'axios';
+import axios from 'axios';
 
 const API = (method, url, data, params, response = 'json') => {
     return new Observable(subscriber => {

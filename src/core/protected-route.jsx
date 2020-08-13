@@ -5,7 +5,7 @@ import AuthChecker from '../containers/auth/authChecker';
 const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
-        render={props =>
+        render={ props =>
             AuthChecker.getAuth() ? (
                 /*<Redirect to={{pathname: "/home"}}/>*/
                 //REVISIT Kuenzang restore this line later
