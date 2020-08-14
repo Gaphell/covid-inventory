@@ -11,10 +11,8 @@ import Container from '@material-ui/core/Container';
 import {
     FormGenerator
 } from "react-reactive-form";
-import { SignInConfig } from "./authConfig";
+import { SignInConfig, DeliverySignupConfig, ManagerSignUp } from "./authConfig";
 import API from '../../service/api.service';
-import { MySnackbarContentWrapper } from '../../shared/snackbar/snackbar';
-import Snackbar from '@material-ui/core/Snackbar';
 import GlobalStore from '../../store/globalStore';
 
 function StayHomeStaySafe() {
@@ -27,35 +25,31 @@ function StayHomeStaySafe() {
 
 export default class Auth extends Component{
 
-    state = {
-        open: false,
+    action = null;
+
+    authConfig = {
+        "signin": {
+            config: SignInConfig,
+            buttonLabel: 'SignIn'
+        },
+        "delivery-signup": {
+            config: DeliverySignupConfig,
+            buttonLabel: 'Register'
+        },
+        "signup": {
+            config: ManagerSignUp,
+            buttonLabel: 'SignUp'
+        }
     };
 
-    handleClick = () => {
+    currentAuthConfig = SignInConfig;
+
+    buttonLabel = 'SignIn';
+
+    userLoggedInNotification = () => {
         GlobalStore.setSnackbar({
             variant: "success",
-            message: "This is success message"
-        })
-    };
-
-    handleWarn = () => {
-        GlobalStore.setSnackbar({
-            variant: "warning",
-            message: "This is a warning"
-        })
-    };
-
-    handleInfo = () => {
-        GlobalStore.setSnackbar({
-            variant: "info",
-            message: "This is an information"
-        })
-    };
-
-    handleError = () => {
-        GlobalStore.setSnackbar({
-            variant: "error",
-            message: "This is error message"
+            message: "User logged in successfully"
         })
     };
 
@@ -72,11 +66,16 @@ export default class Auth extends Component{
             // }, err => {
             //
             // });
+            this.userLoggedInNotification();
             this.props.history.push('/home');
         } else {
             this.loginForm.markAsTouched();
         }
         console.log("Form values", this.loginForm.value);
+    };
+
+    goToSignup = (action) => {
+        this.props.history.push(`/auth/${action}`)
     };
 
     setForm = (form) => {
@@ -112,9 +111,17 @@ export default class Auth extends Component{
     }));
 
     componentDidMount() {
+
     }
 
+    updateCurrentAction = () => {
+        this.action = (this.props && this.props.match && this.props.match.params && this.props.match.params.action) || 'signin' ;
+        this.currentAuthConfig = this.authConfig[this.action].config;
+        this.buttonLabel = this.authConfig[this.action].buttonLabel;
+    };
+
     render() {
+        this.updateCurrentAction();
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
@@ -126,7 +133,7 @@ export default class Auth extends Component{
                         Sign in
                     </Typography>
                     <form className={this.classes.form} noValidate onSubmit={this.handleSubmit}>
-                        <FormGenerator onMount={this.setForm} fieldConfig={SignInConfig}/>
+                        <FormGenerator onMount={this.setForm} fieldConfig={this.currentAuthConfig}/>
                         <Button
                             type="submit"
                             fullWidth
@@ -134,56 +141,28 @@ export default class Auth extends Component{
                             color="primary"
                             className={this.classes.submit}
                         >
-                            Sign In
+                            {this.buttonLabel}
                         </Button>
-                        <Link href="#" variant="body2">
-                            {"Click here to Register"}
-                        </Link>
+                        {(this.action !== "signup") ?
+                            (<Link href="" variant="body2" onClick={this.goToSignup.bind(this, 'signup')}>
+                                {"Click here to Register as Stock Manager"}
+                            </Link>) : ''
+                        }
+                        {(this.action !== "delivery-signup") ?
+                            (<Link href="" variant="body2" onClick={this.goToSignup.bind(this, 'delivery-signup')}>
+                                {"Click here to Register as Delivery Support"}
+                            </Link>) : ''
+                        }
+                        {(this.action !== "signin") ?
+                            (<Link href="" variant="body2" onClick={this.goToSignup.bind(this, 'signin')}>
+                                {"Go back to SignIn"}
+                            </Link>) : ''
+                        }
                     </form>
                 </div>
                 <Box mt={5}>
                     <StayHomeStaySafe/>
                 </Box>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleClick}
-                    className={this.classes.submit}
-                >
-                    success
-                </Button>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleWarn}
-                    className={this.classes.submit}
-                >
-                    warn
-                </Button>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleError}
-                    className={this.classes.submit}
-                >
-                    error
-                </Button>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleInfo}
-                    className={this.classes.submit}
-                >
-                    info
-                </Button>
             </Container>
         );
     }

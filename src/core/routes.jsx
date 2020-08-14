@@ -16,13 +16,13 @@ class Routes extends React.Component {
                 <div className="App">
                     <Suspense>
                         <Route exact path="/">
-                            <Redirect to="/signin"/>
+                            <Redirect to="/auth/signin"/>
                         </Route>
                         <Route path="/404" component={NotFound}/>
                         <ProtectedRoute path="/home" component={Dashboard}/>
                         <ProtectedRoute path="/orders" component={CardListComponent}/>
                         <ProtectedRoute path="/add" component={AddInventoryItemComponent}/>
-                        <ProtectedRoute path="/signin" component={Auth}/>
+                        <ProtectedRoute path="/auth/:action" component={Auth}/>
                     </Suspense>
                 </div>
             </BrowserRouter>
