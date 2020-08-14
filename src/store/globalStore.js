@@ -9,6 +9,11 @@ class GlobalStore extends ObservableStore {
         this.setState({ snackbarConfig }, 'SET_CUSTOMER');
     }
 
+    setAuth(auth) {
+        this.setState({ auth }, 'SET_AUTH');
+    }
+
+
 }
 
 export default new GlobalStore();

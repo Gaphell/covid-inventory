@@ -17,19 +17,23 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listitems';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { mainListItems } from './listitems';
 import Chart from './chart';
 import Deposits from './deposits';
 import Orders from './orders';
+import {Route, Switch} from 'react-router';
+import CardListComponent from "../../component/card-list/card-list.component";
+import AddInventoryItemComponent from "../../component/add-inventory-items/add-inventory-items.component";
+
+import Auth from '../auth/auth';
+import NotFound from "../../shared/404/not-found";
+import CustomTable from "../../component/table/table";
 
 function MadeWithLove() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {'Built with love by the '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Material-UI
-            </Link>
-            {' team.'}
+            {'Stay Home, Stay Safe'}
         </Typography>
     );
 }
@@ -115,7 +119,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -144,9 +148,10 @@ export default function Dashboard() {
                         Dashboard
                     </Typography>
                     <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
+                        {/*<Badge badgeContent={4} color="secondary">*/}
+                            {/*<NotificationsIcon />*/}
+                        {/*</Badge>*/}
+                        <ExitToAppIcon/>
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -164,32 +169,38 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>{mainListItems}</List>
-                <Divider />
-                <List>{secondaryListItems}</List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                                <Chart />
-                            </Paper>
-                        </Grid>
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            <Paper className={fixedHeightPaper}>
-                                <Deposits />
-                            </Paper>
-                        </Grid>
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper}>
-                                <Orders />
-                            </Paper>
-                        </Grid>
-                    </Grid>
+                    <Switch>
+                        <Route path='/orders' component={CardListComponent}/>
+                        <Route path="/add" component={AddInventoryItemComponent}/>
+                        <Route path="/managers" component={CustomTable}/>
+                        <Route path="/delivery" component={CustomTable}/>
+                        <Route path="/centers" component={CustomTable}/>
+                        <Route component={NotFound}/>
+                    </Switch>
+                    {/*<Grid container spacing={3}>*/}
+                        {/*/!* Chart *!/*/}
+                        {/*<Grid item xs={12} md={8} lg={9}>*/}
+                            {/*<Paper className={fixedHeightPaper}>*/}
+                                {/*<Chart />*/}
+                            {/*</Paper>*/}
+                        {/*</Grid>*/}
+                        {/*/!* Recent Deposits *!/*/}
+                        {/*<Grid item xs={12} md={4} lg={3}>*/}
+                            {/*<Paper className={fixedHeightPaper}>*/}
+                                {/*<Deposits />*/}
+                            {/*</Paper>*/}
+                        {/*</Grid>*/}
+                        {/*/!* Recent Orders *!/*/}
+                        {/*<Grid item xs={12}>*/}
+                            {/*<Paper className={classes.paper}>*/}
+                                {/*<Orders />*/}
+                            {/*</Paper>*/}
+                        {/*</Grid>*/}
+                    {/*</Grid>*/}
                 </Container>
                 <MadeWithLove />
             </main>
