@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {FormBuilder, FieldArray, FieldGroup, FieldControl} from "react-reactive-form";
+import {FormBuilder, FieldArray, FieldGroup, FieldControl, Validators} from "react-reactive-form";
 import Input from "@material-ui/core/Input";
 
 class AddInventoryItemComponent extends React.Component {
@@ -13,13 +13,8 @@ class AddInventoryItemComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {formItems: false};
     }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form values", this.inventoryItemForm.value);
-    };
 
     createItem = () => {
         const control = FormBuilder.group({
@@ -33,17 +28,23 @@ class AddInventoryItemComponent extends React.Component {
         return control;
     }
 
-    addItem = () => {
-        this.inventoryItemForm.push(this.createItem());
-    }
-
-    removeItem = (index) => {
-        this.inventoryItemForm.removeAt(index);
-    }
-
     getKey = () => {
         return this.keyCount++;
     };
+
+    setFormItems = () => this.setState({formItems: !!this.inventoryItemForm.controls.length});
+
+    addItem = () => {
+        this.inventoryItemForm.push(this.createItem());
+        this.setFormItems();
+    }
+
+    handleSubmit = () => console.log(this.inventoryItemForm.value);
+
+    removeItem = (index) => {
+        this.inventoryItemForm.removeAt(index);
+        this.setFormItems();
+    }
 
     render() {
         return (
@@ -56,32 +57,36 @@ class AddInventoryItemComponent extends React.Component {
                     render={({controls}) => {
                         return (
                             controls.map((itemControl, index) => (
-                                <div key={index}>
+                                <div key={`${itemControl.meta.key}-${String(index)}`}>
                                     <FieldGroup
                                         control={itemControl}
                                         render={() => (
                                             <div>
                                                 <FieldControl
                                                     name="name"
-                                                    render={({handler}) => (
+                                                    options={{validators: Validators.required}}
+                                                    render={({handler, touched, hasError}) => (
                                                         <div>
-                                                            <label>Name:</label>
+                                                            <label>Name: </label>
                                                             <Input {...handler()}/>
+                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
+                                                        </div>
+                                                    )}/>
+                                                <FieldControl
+                                                    options={{validators: Validators.required}}
+                                                    name="quantity"
+                                                    render={({handler, touched, hasError}) => (
+                                                        <div>
+                                                            <label>Quantity: </label>
+                                                            <Input {...handler()}/>
+                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
                                                         </div>
                                                     )}/>
                                                 <FieldControl
                                                     name="description"
-                                                    render={({handler}) => (
+                                                    render={({handler, touched, hasError}) => (
                                                         <div>
-                                                            <label>Description:</label>
-                                                            <Input {...handler()}/>
-                                                        </div>
-                                                    )}/>
-                                                <FieldControl
-                                                    name="quantity"
-                                                    render={({handler}) => (
-                                                        <div>
-                                                            <label>Quantity:</label>
+                                                            <label>Description: </label>
                                                             <Input {...handler()}/>
                                                         </div>
                                                     )}/>
@@ -95,12 +100,15 @@ class AddInventoryItemComponent extends React.Component {
                             )))
                     }}/>
                 <Button
+                    onClick={this.handleSubmit}
+                    disabled={!this.state.formItems}
                     className="custom-button"
                     type="submit"
                     variant="contained"
                     color="primary">
                     Submit
                 </Button>
+
             </div>
         )
     }
