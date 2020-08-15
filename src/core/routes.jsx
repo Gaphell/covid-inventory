@@ -11,7 +11,7 @@ import AuthService from "../containers/auth/service/authService";
 
 class Routes extends React.Component {
     state = {
-        auth: AuthService.isAuthenticed
+        auth: false
     };
     storeSub = null;
 
@@ -34,7 +34,7 @@ class Routes extends React.Component {
                                 <Redirect to="/auth/signin"/>
                             </Route>
                             <ProtectedRoute path="/auth/:action" component={Auth}/>
-                            {this.state.auth ? <Route component={NotFound}/> : ''}
+                            {this.state.auth ? '' : <Route component={NotFound}/>}
                         </Switch>
                     </Suspense>
                 </div>

@@ -23,6 +23,7 @@ import Chart from './chart';
 import Deposits from './deposits';
 import Orders from './orders';
 import {Route, Switch} from 'react-router';
+import {Redirect} from "react-router-dom";
 import CardListComponent from "../../component/card-list/card-list.component";
 import AddInventoryItemComponent from "../../component/add-inventory-items/add-inventory-items.component";
 
@@ -32,6 +33,7 @@ import CustomTable from "../../component/table/table";
 import AddCentersComponent from "../../component/add-centers/add-centers.component";
 import API from "../../service/api.service";
 import AuthService from "../auth/service/authService";
+import GlobalStore from "../../store/globalStore";
 
 function MadeWithLove() {
     return (
@@ -133,11 +135,18 @@ export default function Dashboard(props) {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    const logout = () => {
-        API('DELETE', 'users/sign_out ').subscribe(() => {
-            AuthService.logout()
-        } );
+    const logout = () => { debugger;
+        API('DELETE', 'users/sign_out ').subscribe(() => { debugger;
+            console.log(this);
+            AuthService.logout();
+            AuthService.removeUser();
+            setAuth();
+        });
     }
+
+    const setAuth = () => {
+        GlobalStore.setAuth(AuthService.isAuthenticed);
+    };
 
     return (
         <div className={classes.root}>
@@ -160,7 +169,10 @@ export default function Dashboard(props) {
                         {/*<Badge badgeContent={4} color="secondary">*/}
                         {/*<NotificationsIcon />*/}
                         {/*</Badge>*/}
-                        <ExitToAppIcon onClick={logout}/>
+                        <ExitToAppIcon/>
+                    </IconButton>
+                    <IconButton onClick={logout}>
+                        Logout
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -189,7 +201,7 @@ export default function Dashboard(props) {
                         {/*<Route path="/delivery" component={CustomTable}/>*/}
                         {/*<Route path="/centers" component={CustomTable}/>*/}
                         <Route path="/centers" component={AddCentersComponent}/>
-                        <Route component={NotFound}/>
+                        <Route path="/404" component={NotFound}/>
                     </Switch>
                     {/*<Grid container spacing={3}>*/}
                     {/*/!* Chart *!/*/}

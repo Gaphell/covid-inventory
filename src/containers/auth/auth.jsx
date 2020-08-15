@@ -60,7 +60,7 @@ export default class Auth extends Component {
     };
 
     setAuth = () => {
-        GlobalStore.setAuth(false);
+        GlobalStore.setAuth(AuthService.isAuthenticed);
     };
 
     handleReset = () => {
@@ -75,7 +75,7 @@ export default class Auth extends Component {
                 AuthService.setUser(JSON.stringify(response.data.user));
                 this.userLoggedInNotification();
                 this.setAuth();
-                this.props.history.push('/centers');
+                this.props.history.push('/orders')
             }, err => {
                 this.props.history.push('/');
             });

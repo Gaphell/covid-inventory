@@ -7,6 +7,10 @@ class AuthService {
         localStorage.setItem('user', user);
     }
 
+    static removeUser = () => {
+        localStorage.removeItem('user');
+    }
+
     static get isAuthenticed() {
         return !!localStorage.getItem('token');
     }
