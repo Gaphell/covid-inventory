@@ -7,19 +7,18 @@ import NotFound from "../shared/404/not-found"
 import Auth from "../containers/auth/auth"
 import Dashboard from "../containers/navigation/dashboard";
 import GlobalStore from '../store/globalStore';
+import AuthService from "../containers/auth/service/authService";
 
 class Routes extends React.Component {
-
     state = {
-        auth: true
+        auth: AuthService.isAuthenticed
     };
-
     storeSub = null;
 
     componentDidMount() {
         this.storeSub = GlobalStore.stateChanged.subscribe(state => {
             if (state) {
-                this.setState({ auth: state.auth});
+                this.setState({auth: state.auth});
             }
         });
     }
@@ -28,7 +27,7 @@ class Routes extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    {!this.state.auth ? <Dashboard/> : ''}
+                    {this.state.auth ? <Dashboard/> : ''}
                     <Suspense>
                         <Switch>
                             <Route exact path="/">

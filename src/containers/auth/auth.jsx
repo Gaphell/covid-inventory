@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,14 +6,15 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {
     FormGenerator
 } from "react-reactive-form";
-import { SignInConfig, DeliverySignupConfig, ManagerSignUp } from "./authConfig";
+import {SignInConfig, DeliverySignupConfig, ManagerSignUp} from "./authConfig";
 import API from '../../service/api.service';
 import GlobalStore from '../../store/globalStore';
+import AuthService from "./service/authService";
 
 function StayHomeStaySafe() {
     return (
@@ -23,7 +24,7 @@ function StayHomeStaySafe() {
     );
 }
 
-export default class Auth extends Component{
+export default class Auth extends Component {
 
     action = null;
 
@@ -62,22 +63,22 @@ export default class Auth extends Component{
         GlobalStore.setAuth(false);
     };
 
-    handleReset=() => {
+    handleReset = () => {
         this.loginForm.reset();
     };
 
-    handleSubmit=(e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         if (this.loginForm.valid) {
-            // API('POST', 'login', this.loginForm.value, '').subscribe(res => {
-            //     localStorage.setItem('token', res.token);
-            //     this.props.history.push('/home');
-            // }, err => {
-            //
-            // });
-            this.userLoggedInNotification();
-            this.setAuth();
-            this.props.history.push('/orders');
+            API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
+                AuthService.login(response.headers.authorization);
+                AuthService.setUser(JSON.stringify(response.data.user));
+                this.userLoggedInNotification();
+                this.setAuth();
+                this.props.history.push('/centers');
+            }, err => {
+                this.props.history.push('/');
+            });
         } else {
             this.loginForm.markAsTouched();
         }
@@ -125,7 +126,7 @@ export default class Auth extends Component{
     }
 
     updateCurrentAction = () => {
-        this.action = (this.props && this.props.match && this.props.match.params && this.props.match.params.action) || 'signin' ;
+        this.action = (this.props && this.props.match && this.props.match.params && this.props.match.params.action) || 'signin';
         this.currentAuthConfig = this.authConfig[this.action].config;
         this.buttonLabel = this.authConfig[this.action].buttonLabel;
         this.title = this.authConfig[this.action].title;
