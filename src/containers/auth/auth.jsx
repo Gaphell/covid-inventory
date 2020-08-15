@@ -30,15 +30,18 @@ export default class Auth extends Component{
     authConfig = {
         "signin": {
             config: SignInConfig,
-            buttonLabel: 'SignIn'
+            buttonLabel: 'SignIn',
+            title: 'Sign In'
         },
         "delivery-signup": {
             config: DeliverySignupConfig,
-            buttonLabel: 'Register'
+            buttonLabel: 'Register',
+            title: 'Delivery Support Register'
         },
         "signup": {
             config: ManagerSignUp,
-            buttonLabel: 'SignUp'
+            buttonLabel: 'SignUp',
+            title: 'Stock Manager Register'
         }
     };
 
@@ -46,11 +49,17 @@ export default class Auth extends Component{
 
     buttonLabel = 'SignIn';
 
+    title = 'Sign In';
+
     userLoggedInNotification = () => {
         GlobalStore.setSnackbar({
             variant: "success",
             message: "User logged in successfully"
         })
+    };
+
+    setAuth = () => {
+        GlobalStore.setAuth(false);
     };
 
     handleReset=() => {
@@ -67,7 +76,8 @@ export default class Auth extends Component{
             //
             // });
             this.userLoggedInNotification();
-            this.props.history.push('/home');
+            this.setAuth();
+            this.props.history.push('/orders');
         } else {
             this.loginForm.markAsTouched();
         }
@@ -118,6 +128,7 @@ export default class Auth extends Component{
         this.action = (this.props && this.props.match && this.props.match.params && this.props.match.params.action) || 'signin' ;
         this.currentAuthConfig = this.authConfig[this.action].config;
         this.buttonLabel = this.authConfig[this.action].buttonLabel;
+        this.title = this.authConfig[this.action].title;
     };
 
     render() {
@@ -130,7 +141,7 @@ export default class Auth extends Component{
                         <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        {this.title}
                     </Typography>
                     <form className={this.classes.form} noValidate onSubmit={this.handleSubmit}>
                         <FormGenerator onMount={this.setForm} fieldConfig={this.currentAuthConfig}/>
