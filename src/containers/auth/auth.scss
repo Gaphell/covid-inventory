@@ -36,7 +36,7 @@
       }
 
       .auth-info {
-        background: rgba(#0F1D6F, 0.80);
+        background: linear-gradient(45deg, rgb(33, 150, 243) 30%, rgb(33, 203, 243) 90%);
         padding: 4px;
         @include media('gt-sm') {
           height: 65vh;
