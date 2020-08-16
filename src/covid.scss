@@ -1,0 +1,79 @@
+@import 'utility';
+$white-color: #ffffff;
+
+.auth-container {
+  background: url("./assets/images/cool.png") no-repeat 0 0/cover;
+  display: flex !important;
+  max-width: unset !important;
+  min-height: 100vh;
+  margin: 0 !important;
+
+  .auth-content {
+    border-radius: 12px !important;
+    background-color: rgba($white-color, 0.4) !important;
+    margin: auto !important;
+    width: 90vw !important;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12) !important;
+    @include media('gt-sm') {
+      height: 70vh;
+      width: 80vw !important;
+    }
+    .auth-grid {
+      @include media('lt-md') {
+        flex-direction: column-reverse !important;
+      }
+
+      .form-card {
+        padding: 20px !important;
+        background-color: white;
+        text-align: center;
+        border-radius: 0 0 12px 12px;
+        @include media('gt-sm') {
+          height: 70vh;
+          padding: 40px !important;
+          overflow-y: auto;
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      .auth-info {
+        background: rgba(#0F1D6F, 0.80);
+        padding: 4px;
+        @include media('gt-sm') {
+          height: 65vh;
+          margin: 20px;
+          border-radius: 12px;
+          padding: 20px;
+        }
+        .info {
+          color: $white-color;
+          text-align: center;
+          h1 {
+            @include media('xs') {
+              margin: 4px 0;
+            }
+          }
+
+          .app-desc {
+            font-size: 16px;
+            font-weight: 600;
+            @include media('xs') {
+              display: none !important;
+            }
+          }
+          .cart-img {
+            height: 200px;
+            @include media('xs') {
+              height: 80px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.MuiOutlinedInput-root {
+  width: 100% !important;
+  margin-top: 20px;
+}
