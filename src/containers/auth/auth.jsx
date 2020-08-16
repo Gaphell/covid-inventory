@@ -84,7 +84,8 @@ export default class Auth extends Component {
     };
 
     setAuth = () => {
-        GlobalStore.setAuth(AuthService.isAuthenticed);
+        // GlobalStore.setAuth(AuthService.isAuthenticed);
+        GlobalStore.setAuth(true);
     };
 
     handleReset = () => {
@@ -94,15 +95,18 @@ export default class Auth extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.loginForm.valid) {
-            API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
-                AuthService.login(response.headers.authorization);
-                AuthService.setUser(JSON.stringify(response.data.user));
-                this.userLoggedInNotification();
-                this.setAuth();
-                this.props.history.push('/orders')
-            }, err => {
-                this.props.history.push('/');
-            });
+            this.setAuth();
+            this.userLoggedInNotification();
+            this.props.history.push('/orders');
+            // API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
+            //     AuthService.login(response.headers.authorization);
+            //     AuthService.setUser(JSON.stringify(response.data.user));
+            //     this.userLoggedInNotification();
+            //     this.setAuth();
+            //     this.props.history.push('/orders')
+            // }, err => {
+            //     this.props.history.push('/');
+            // });
         } else {
             this.loginForm.markAsTouched();
         }
@@ -215,8 +219,7 @@ export default class Auth extends Component {
                         </Grid>
                     </div>
                 </div>
-                <
-                    /Container>
+                </Container>
                     )
                     ;
                     }

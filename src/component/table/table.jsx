@@ -30,7 +30,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function CustomTable() {
+export default function CustomTable(props) {
+    const goToCenterDetails = () => {
+        props.parent.history.push('centers/2');
+    };
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -47,7 +50,7 @@ export default function CustomTable() {
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
-                        <TableRow key={row.id}>
+                        <TableRow key={row.id} onClick={goToCenterDetails}>
                             <TableCell>{row.date}</TableCell>
                             <TableCell>{row.name}</TableCell>
                             <TableCell>{row.shipTo}</TableCell>
