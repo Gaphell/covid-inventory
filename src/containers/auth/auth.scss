@@ -1,8 +1,6 @@
-@import 'utility';
-$white-color: #ffffff;
-
+@import '../../assets/stylesheets/variables';
 .auth-container {
-  background: url("./assets/images/cool.png") no-repeat 0 0/cover;
+  background: url("../../assets/images/cool.png") no-repeat 0 0/cover;
   display: flex !important;
   max-width: unset !important;
   min-height: 100vh;
@@ -18,6 +16,7 @@ $white-color: #ffffff;
       height: 70vh;
       width: 80vw !important;
     }
+
     .auth-grid {
       @include media('lt-md') {
         flex-direction: column-reverse !important;
@@ -45,9 +44,11 @@ $white-color: #ffffff;
           border-radius: 12px;
           padding: 20px;
         }
+
         .info {
           color: $white-color;
           text-align: center;
+
           h1 {
             @include media('xs') {
               margin: 4px 0;
@@ -61,11 +62,21 @@ $white-color: #ffffff;
               display: none !important;
             }
           }
+
           .cart-img {
             height: 200px;
             @include media('xs') {
               height: 80px;
             }
+          }
+
+          hr {
+            height: 1px;
+          }
+
+          .copyright-note {
+            font-size: 12px;
+            line-height: 16px;
           }
         }
       }
@@ -76,4 +87,9 @@ $white-color: #ffffff;
 .MuiOutlinedInput-root {
   width: 100% !important;
   margin-top: 20px;
+}
+
+.Mui-focused legend span{
+  color: $primary-color !important;
+  visibility: visible !important;
 }

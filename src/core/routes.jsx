@@ -1,5 +1,4 @@
 import React, {Suspense} from 'react';
-import '../App.css';
 import {BrowserRouter, Redirect} from 'react-router-dom';
 import {Route, Switch} from 'react-router';
 import ProtectedRoute from './protected-route';
