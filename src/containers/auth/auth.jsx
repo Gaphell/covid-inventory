@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, styled} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
 
 
 import {
@@ -39,12 +37,14 @@ const MyButton = styled(({color, ...other}) => <Button {...other} />)({
 function StayHomeStaySafe() {
     return (
         <div className="info">
-            <Typography align="center">
-                <h1> Lockdown Charo</h1>
-            </Typography>
-
-           <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
-           <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione sapiente veniam voluptas voluptate.</p>
+            <h1> Lockdown Charo</h1>
+            <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
+            <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio
+                dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus
+                dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione
+                sapiente veniam voluptas voluptate.</p>
+            <hr/>
+            <p>&copy; Lockdown App 2020. All rights reserved. </p>
         </div>
     );
 }
@@ -207,7 +207,7 @@ export default class Auth extends Component {
                                     </form>
                                 </div>
                             </Grid>
-                            <Grid item sm={12}  md={7} >
+                            <Grid item sm={12} md={7}>
                                 <div className="auth-info">
                                     <StayHomeStaySafe/>
                                 </div>
