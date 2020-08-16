@@ -1,112 +1,72 @@
+@import 'utility';
 $white-color: #ffffff;
-@mixin font-size() {
-  @for $gap from 0 through 15 {
-    $size: $gap * 4;
-    .font-size-#{$size} {
-      font-size: #{$size}px;
-    }
-    .s-#{$size} {
-      font-size: #{$size}px;
-      height: #{$size}px;
-      width: #{$size}px;
-    }
-  }
-}
-
-@include font-size;
-@mixin margin() {
-  @for $gap from 0 through 15 {
-    $size: $gap * 4;
-    .m-#{$size} {
-      margin: #{$size}px;
-    }
-    .mx-#{$size} {
-      margin-left: #{$size}px;
-      margin-right: #{$size}px;
-    }
-    .my-#{$size} {
-      margin-top: #{$size}px;
-      margin-bottom: #{$size}px;
-    }
-
-    $direction-list: top, bottom, left, right;
-    $i: 1;
-    @each $dir in $direction-list {
-      $prefix: str-slice($dir, 1, 1);
-      .m#{$prefix}-#{$size} {
-        margin-#{$dir}: #{$size}px;
-      }
-      $i: $i + 1;
-    }
-  }
-}
-
-@include margin;
-@mixin padding() {
-  @for $gap from 0 through 15 {
-    $size: $gap * 4;
-    .p-#{$size} {
-      padding: #{$size}px;
-    }
-    .px-#{$size} {
-      padding-left: #{$size}px;
-      padding-right: #{$size}px;
-    }
-    .py-#{$size} {
-      padding-top: #{$size}px;
-      padding-bottom: #{$size}px;
-    }
-
-    $direction-list: top, bottom, left, right;
-    $i: 1;
-    @each $dir in $direction-list {
-      $prefix: str-slice($dir, 1, 1);
-      .p#{$prefix}-#{$size} {
-        padding-#{$dir}: #{$size}px;
-      }
-      $i: $i + 1;
-    }
-  }
-}
-
-@include padding;
 
 .auth-container {
   background: url("./assets/images/cool.png") no-repeat 0 0/cover;
   display: flex !important;
   max-width: unset !important;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 !important;
 
   .auth-content {
     border-radius: 12px !important;
     background-color: rgba($white-color, 0.4) !important;
-    width: 80vw !important;
-    height: 70vh;
     margin: auto !important;
+    width: 90vw !important;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12) !important;
-
-    .form-card {
-      padding: 40px !important;
+    @include media('gt-sm') {
       height: 70vh;
-      background-color: white;
-      border-radius: 12px 0 0 12px;
-      text-align: center;
-      overflow-y: auto;
+      width: 80vw !important;
     }
+    .auth-grid {
+      @include media('lt-md') {
+        flex-direction: column-reverse !important;
+      }
 
-    .auth-info {
-      background: rgba(#0F1D6F, 0.80);
-      height: 65vh;
-      margin: 20px;
-      border-radius: 12px;
-      padding: 20px;
-      .info {
+      .form-card {
+        padding: 20px !important;
+        background-color: white;
         text-align: center;
-        p {
-          color: white;
-          font-size: 16px;
-          font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        @include media('gt-sm') {
+          height: 70vh;
+          padding: 40px !important;
+          overflow-y: auto;
+          border-radius: 12px 0 0 12px;
+        }
+      }
+
+      .auth-info {
+        background: rgba(#0F1D6F, 0.80);
+        padding: 4px;
+        @include media('gt-sm') {
+          height: 65vh;
+          margin: 20px;
+          border-radius: 12px;
+          padding: 20px;
+        }
+        .info {
+          color: $white-color;
+          text-align: center;
+          h1 {
+            @include media('xs') {
+              margin: 4px 0;
+            }
+          }
+
+          .app-desc {
+            font-size: 16px;
+            font-weight: 600;
+            @include media('xs') {
+              display: none !important;
+            }
+          }
+          .cart-img {
+            height: 200px;
+            @include media('xs') {
+              height: 80px;
+            }
+          }
         }
       }
     }

@@ -28,3 +28,4 @@ yarn-error.log*
 /.idea
 .sass-cache
 src/covid.css.map
+src/utility.css.map

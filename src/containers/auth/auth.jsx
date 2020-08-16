@@ -39,11 +39,11 @@ function StayHomeStaySafe() {
     return (
         <div className="info">
             <Typography align="center">
-                <h1> Lockdown Charo </h1>
+                <h1> Lockdown Charo</h1>
             </Typography>
 
-           <img src={require('../../assets/images/cart.svg')} height="200px" alt="Cart Image"/>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione sapiente veniam voluptas voluptate.</p>
+           <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
+           <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione sapiente veniam voluptas voluptate.</p>
         </div>
     );
 }
@@ -162,8 +162,9 @@ export default class Auth extends Component {
                 <div className='auth-content'>
                     <CssBaseline/>
                     <div className={this.classes.paper}>
-                        <Grid container>
-                            <Grid item xs={5}>
+                        <Grid container className="auth-grid">
+                            <Grid item md={5} sm={12}>
+
                                 <div className="form-card">
                                     <h1>
                                         {this.title}
@@ -205,7 +206,7 @@ export default class Auth extends Component {
                                     </form>
                                 </div>
                             </Grid>
-                            <Grid item xs={7}>
+                            <Grid item sm={12}  md={7} >
                                 <div className="auth-info">
                                     <StayHomeStaySafe/>
                                 </div>
