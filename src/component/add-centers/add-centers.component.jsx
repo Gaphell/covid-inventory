@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import API from "../../service/api.service";
+import Location from "../../shared/map/map";
 
 
 export default function AddCentersComponent(props) {
@@ -187,6 +188,7 @@ export default function AddCentersComponent(props) {
             {/*</div>*/}
             {/*)))*/}
             {/*}}/>*/}
+            <Location/>
             <Button
                 onClick={handleSubmit}
                 className="custom-button"
