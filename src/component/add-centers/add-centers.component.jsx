@@ -16,37 +16,42 @@ import API from "../../service/api.service";
 
 export default function AddCentersComponent() {
     let keyCount = 0;
-    const retailerForm = FormBuilder.array([]);
+    let retailerForm = FormBuilder.group({});
     const [service_areas, setArea] = useState([])
-    const addItem = () => {
-        retailerForm.push(createItem());
+    // const addItem = () => {
+    //     retailerForm.push(createItem());
+    // }
+
+    useEffect(() => {
+        setForm(user);
+    });
+
+    const user = {
+        email: 'ps@gmail.com',
+        role: 'admin',
+        name: 'Eminem',
+        mobile: '+97517828758',
+        service_area_id: 1,
+        retailer_attributes: {
+            name: 'Joint Task Force',
+            location_attributes: {
+                longitude: 123,
+                latitude: 121
+            }
+        }
     }
 
-    const createItem = () => {
-        const control = FormBuilder.group({
-            name: undefined,
-            email: undefined,
-            mobile: undefined,
-            service_area_id: undefined,
-            retailer_attributes: FormBuilder.group({
-                name: undefined,
-                location_attributes: FormBuilder.group({
-                    longitude: undefined,
-                    latitude: undefined
-                })
-            }),
-        });
-        control.meta = {
-            key: getKey()
-        };
-        return control;
+    const setForm = (user) => {
+        // for edit
+        // retailerForm.patchValue(user);
     }
 
-    const getKey = () => {
-        return keyCount++;
+    const handleSubmit = () => {
+        if (retailerForm.valid) {
+            console.log({valid: retailerForm.value})
+        }
+        console.log({invalid: retailerForm.value})
     };
-
-    const handleSubmit = () => console.log(retailerForm.value);
 
     const removeItem = (index) => {
         retailerForm.removeAt(index);
@@ -54,123 +59,130 @@ export default function AddCentersComponent() {
 
     return (
         <div>
-            <IconButton aria-label="add" color="primary" onClick={addItem}>
-                <AddCircleIcon/>
-            </IconButton>
-            <FieldArray
+            {/*<IconButton aria-label="add" color="primary" onClick={addItem}>*/}
+            {/*    <AddCircleIcon/>*/}
+            {/*</IconButton>*/}
+            {/*<FieldArray*/}
+            {/*    control={retailerForm}*/}
+            {/*    render={({controls}) => {*/}
+            {/*        return (*/}
+            {/*            controls.map((itemControl, index) => (*/}
+            {/*                <div>*/}
+            <FieldGroup
                 control={retailerForm}
-                render={({controls}) => {
-                    return (
-                        controls.map((itemControl, index) => (
-                            <div key={`${itemControl.meta.key}-${String(index)}`}>
-                                <FieldGroup
-                                    control={itemControl}
-                                    render={() => (
-                                        <div>
-                                            <FieldControl
-                                                name="name"
-                                                options={{validators: Validators.required}}
-                                                render={({handler, touched, hasError}) => (
-                                                    <div>
-                                                        <label>Name: </label>
-                                                        <Input {...handler()}/>
-                                                        <span>{touched && hasError('required') && 'This field is required'}</span>
-                                                    </div>
-                                                )}/>
-                                            <FieldControl
-                                                options={{validators: Validators.required}}
-                                                name="email"
-                                                render={({handler, touched, hasError}) => (
-                                                    <div>
-                                                        <label>Email: </label>
-                                                        <Input {...handler()}/>
-                                                        <span>{touched && hasError('required') && 'This field is required'}</span>
-                                                    </div>
-                                                )}/>
-                                            <FieldControl
-                                                name="mobile"
-                                                render={({handler, touched, hasError}) => (
-                                                    <div>
-                                                        <label>Mobile#: </label>
-                                                        <Input {...handler()}/>
-                                                    </div>
-                                                )}/>
-                                            <FieldControl
-                                                name="service_area_id"
-                                                render={({handler, touched, hasError}) => (
-                                                    <div>
-                                                        <label>Service Area: </label>
-                                                        {/*<Input {...handler()}/>*/}
-                                                        <FormControl variant="outlined" className="width-15">
-                                                            <InputLabel
-                                                                id="demo-simple-select-outlined-label">Service
-                                                                Area</InputLabel>
-                                                            <Select
-                                                                labelId="demo-simple-select-outlined-label"
-                                                                id="demo-simple-select-outlined"
-                                                                label="Service Area"
-                                                                {...handler()}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>None</em>
-                                                                </MenuItem>
-                                                                {/*{*/}
-                                                                {/*    service_areas?.map(({id, name}) => (*/}
-                                                                {/*        <MenuItem value={id}>{name}</MenuItem>*/}
-                                                                {/*    ))*/}
-                                                                {/*}*/}
-                                                            </Select>
-                                                        </FormControl>
-                                                    </div>
-                                                )}/>
-                                            <FieldGroup
-                                                name="retailer_attributes"
-                                                render={({handler, touched, hasError}) => (
-                                                    <Container>
-                                                        <FieldControl
-                                                            name="name"
-                                                            render={({handler, touched, hasError}) => (
-                                                                <Container>
-                                                                    <label>Retailer Name: </label>
-                                                                    <Input {...handler()}/>
-                                                                </Container>
-                                                            )}/>
-                                                        <FieldGroup
-                                                            name="location_attributes"
-                                                            render={() => (
-                                                                <Container>
-                                                                    <FieldControl
-                                                                        name="longitude"
-                                                                        render={({handler, touched, hasError}) => (
-                                                                            <Container>
-                                                                                <label>Longitude: </label>
-                                                                                <Input {...handler()}/>
-                                                                            </Container>
-                                                                        )}
-                                                                    />
-                                                                    <FieldControl
-                                                                        name="latitude"
-                                                                        render={({handler, touched, hasError}) => (
-                                                                            <Container>
-                                                                                <label>Latitude: </label>
-                                                                                <Input {...handler()}/>
-                                                                            </Container>
-                                                                        )}
-                                                                    />
-                                                                </Container>
-                                                            )}/>
-                                                    </Container>
-                                                )}
-                                            />
-                                        </div>
-                                    )}/>
-                                <IconButton aria-label="delete" color="primary"
-                                            onClick={() => removeItem(index)}>
-                                    <DeleteIcon/>
-                                </IconButton>
-                            </div>
-                        )))
-                }}/>
+                render={() => (
+                    <div>
+                        <FieldControl
+                            name="name"
+                            options={{validators: Validators.required}}
+                            render={({handler, touched, hasError}) => (
+                                <div>
+                                    <label>Name: </label>
+                                    <Input {...handler()}/>
+                                    <span>{touched && hasError('required') && 'This field is required'}</span>
+                                </div>
+                            )}/>
+                        <FieldControl
+                            options={{validators: Validators.required}}
+                            name="email"
+                            render={({handler, touched, hasError}) => (
+                                <div>
+                                    <label>Email: </label>
+                                    <Input {...handler()}/>
+                                    <span>{touched && hasError('required') && 'This field is required'}</span>
+                                </div>
+                            )}/>
+                        <FieldControl
+                            options={{validators: Validators.required}}
+                            name="mobile"
+                            render={({handler, touched, hasError}) => (
+                                <div>
+                                    <label>Mobile#: </label>
+                                    <Input {...handler()}/>
+                                    <span>{touched && hasError('required') && 'This field is required'}</span>
+                                </div>
+                            )}/>
+                        <FieldControl
+                            name="service_area_id"
+                            render={({handler, touched, hasError}) => (
+                                <div>
+                                    <label>Service Area: </label>
+                                    {/*<Input {...handler()}/>*/}
+                                    <FormControl variant="outlined" className="width-15">
+                                        <InputLabel
+                                            id="demo-simple-select-outlined-label">Service
+                                            Area</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            label="Service Area"
+                                            {...handler()}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            {/*{*/}
+                                            {/*    service_areas?.map(({id, name}) => (*/}
+                                            {/*        <MenuItem value={id}>{name}</MenuItem>*/}
+                                            {/*    ))*/}
+                                            {/*}*/}
+                                        </Select>
+                                        <span>{touched && hasError('required') && 'This field is required'}</span>
+                                    </FormControl>
+                                </div>
+                            )}/>
+                        <FieldGroup
+                            name="retailer_attributes"
+                            render={({handler, touched, hasError}) => (
+                                <Container>
+                                    <FieldControl
+                                        name="name"
+                                        options={{validators: Validators.required}}
+                                        render={({handler, touched, hasError}) => (
+                                            <Container>
+                                                <label>Retailer Name: </label>
+                                                <Input {...handler()}/>
+                                                <span>{touched && hasError('required') && 'This field is required'}</span>
+                                            </Container>
+                                        )}/>
+                                    <FieldGroup
+                                        name="location_attributes"
+                                        render={() => (
+                                            <Container>
+                                                <FieldControl
+                                                    name="longitude"
+                                                    render={({handler, touched, hasError}) => (
+                                                        <Container>
+                                                            <label>Longitude: </label>
+                                                            <Input {...handler()}/>
+                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
+                                                        </Container>
+                                                    )}
+                                                />
+                                                <FieldControl
+                                                    name="latitude"
+                                                    render={({handler, touched, hasError}) => (
+                                                        <Container>
+                                                            <label>Latitude: </label>
+                                                            <Input {...handler()}/>
+                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
+                                                        </Container>
+                                                    )}
+                                                />
+                                            </Container>
+                                        )}/>
+                                </Container>
+                            )}
+                        />
+                    </div>
+                )}/>
+            {/*<IconButton aria-label="delete" color="primary"*/}
+            {/*            onClick={() => removeItem(index)}>*/}
+            {/*    <DeleteIcon/>*/}
+            {/*</IconButton>*/}
+            {/*</div>*/}
+            {/*)))*/}
+            {/*}}/>*/}
             <Button
                 onClick={handleSubmit}
                 className="custom-button"
