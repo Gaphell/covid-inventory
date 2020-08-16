@@ -182,7 +182,7 @@ export default class Auth extends Component {
                                                       variant="contained"
                                                       className={this.classes.submit}>{this.buttonLabel}</MyButton>
                                         </React.Fragment>
-                                        <h3>Don't have an account?</h3>
+                                  {/*      <h3>Don't have an account?</h3>
                                         <div className="mt-12">
                                             {(this.action !== "signup") ?
                                                 (<Chip color='primary'
@@ -199,7 +199,7 @@ export default class Auth extends Component {
                                                        clickable variant="outlined"
                                                        onClick={this.goToSignup.bind(this, 'delivery-signup')}/>) : ''
                                             }
-                                        </div>
+                                        </div>*/}
                                         <div className="mt-12">
                                             {(this.action !== "signin") ?
                                                 (<Link href="" variant="body2"
@@ -207,6 +207,11 @@ export default class Auth extends Component {
                                                     {"Back to Sign In"}
                                                 </Link>) : ''
                                             }
+                                        </div>
+                                        <div className="mt-12">
+                                            <Link href="" variant="body2">
+                                                {"Forgot Password?"}
+                                            </Link>
                                         </div>
                                     </form>
                                 </div>
