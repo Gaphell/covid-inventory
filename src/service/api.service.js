@@ -1,11 +1,19 @@
 import {Observable} from 'rxjs'
-import * as axios from 'axios';
+import axios from 'axios';
+import AuthService from "../containers/auth/service/authService";
+
+axios.defaults.baseURL = 'https://of.selise.dev/api/v1';
 
 const API = (method, url, data, params, response = 'json') => {
+    const headers = {};
+    if (AuthService.isAuthenticed) {
+        headers['Authorization'] = AuthService.token;
+    }
     return new Observable(subscriber => {
         axios({
             method: method,
             url: url,
+            headers,
             data: data,
             params: params,
             responseType: response

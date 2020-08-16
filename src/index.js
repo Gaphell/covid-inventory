@@ -5,13 +5,8 @@ import Routes from "./core/routes";
 import { CustomTheme } from './core/theme'
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider } from '@material-ui/styles';
+import SnackbarContainer from "./shared/snackbar/snackbar";
 
-ReactDOM.render(
-  <React.StrictMode>
-      <ThemeProvider theme={CustomTheme}><Routes/></ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
+ReactDOM.render(<ThemeProvider theme={CustomTheme}><Routes/><SnackbarContainer/></ThemeProvider>, document.getElementById('root'));
 
 serviceWorker.unregister();
