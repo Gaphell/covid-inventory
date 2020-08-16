@@ -16,6 +16,7 @@ import {
 import {SignInConfig, DeliverySignupConfig, ManagerSignUp} from "./authConfig";
 import API from '../../service/api.service';
 import GlobalStore from '../../store/globalStore';
+import AuthService from "./service/authService";
 import Grid from '@material-ui/core/Grid';
 
 const MyButton = styled(({color, ...other}) => <Button {...other} />)({
@@ -83,7 +84,7 @@ export default class Auth extends Component {
     };
 
     setAuth = () => {
-        GlobalStore.setAuth(false);
+        GlobalStore.setAuth(AuthService.isAuthenticed);
     };
 
     handleReset = () => {
@@ -93,15 +94,15 @@ export default class Auth extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.loginForm.valid) {
-            // API('POST', 'login', this.loginForm.value, '').subscribe(res => {
-            //     localStorage.setItem('token', res.token);
-            //     this.props.history.push('/home');
-            // }, err => {
-            //
-            // });
-            this.userLoggedInNotification();
-            this.setAuth();
-            this.props.history.push('/orders');
+            API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
+                AuthService.login(response.headers.authorization);
+                AuthService.setUser(JSON.stringify(response.data.user));
+                this.userLoggedInNotification();
+                this.setAuth();
+                this.props.history.push('/orders')
+            }, err => {
+                this.props.history.push('/');
+            });
         } else {
             this.loginForm.markAsTouched();
         }
