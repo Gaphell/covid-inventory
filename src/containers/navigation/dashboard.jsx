@@ -34,6 +34,7 @@ import AddCentersComponent from "../../component/add-centers/add-centers.compone
 import API from "../../service/api.service";
 import AuthService from "../auth/service/authService";
 import GlobalStore from "../../store/globalStore";
+import CentersComponent from "../../component/centers/centers.component";
 
 function MadeWithLove() {
     return (
@@ -200,7 +201,9 @@ export default function Dashboard(props) {
                         {/*<Route path="/managers" component={CustomTable}/>*/}
                         {/*<Route path="/delivery" component={CustomTable}/>*/}
                         {/*<Route path="/centers" component={CustomTable}/>*/}
-                        <Route path="/centers" component={AddCentersComponent}/>
+                        <Route path="/centers/new" component={AddCentersComponent}/>
+                        <Route path="/centers/:id" component={AddCentersComponent}/>
+                        <Route path="/centers" component={CentersComponent}/>
                         <Route path="/404" component={NotFound}/>
                     </Switch>
                     {/*<Grid container spacing={3}>*/}

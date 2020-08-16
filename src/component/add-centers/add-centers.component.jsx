@@ -14,7 +14,7 @@ import Select from '@material-ui/core/Select';
 import API from "../../service/api.service";
 
 
-export default function AddCentersComponent() {
+export default function AddCentersComponent(props) {
     let keyCount = 0;
     let retailerForm = FormBuilder.group({});
     const [service_areas, setArea] = useState([])
@@ -39,12 +39,16 @@ export default function AddCentersComponent() {
                 latitude: 121
             }
         }
-    }
+    };
 
     const setForm = (user) => {
         // for edit
         // retailerForm.patchValue(user);
-    }
+    };
+
+    const goToCenters = () => {
+        props.history.push('/centers');
+    };
 
     const handleSubmit = () => {
         if (retailerForm.valid) {
@@ -55,7 +59,7 @@ export default function AddCentersComponent() {
 
     const removeItem = (index) => {
         retailerForm.removeAt(index);
-    }
+    };
 
     return (
         <div>
@@ -190,6 +194,14 @@ export default function AddCentersComponent() {
                 variant="contained"
                 color="primary">
                 Invite
+            </Button>
+            <Button
+                onClick={goToCenters}
+                className="custom-button"
+                type="submit"
+                variant="contained"
+                color="primary">
+                Go to Centers
             </Button>
         </div>
     )
