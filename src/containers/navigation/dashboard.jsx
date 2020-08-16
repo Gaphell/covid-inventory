@@ -135,8 +135,8 @@ export default function Dashboard(props) {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    const logout = () => { debugger;
-        API('DELETE', 'users/sign_out ').subscribe(() => { debugger;
+    const logout = () => {
+        API('DELETE', 'users/sign_out ').subscribe(() => {
             console.log(this);
             AuthService.logout();
             AuthService.removeUser();
