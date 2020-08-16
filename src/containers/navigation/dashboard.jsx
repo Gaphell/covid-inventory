@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,17 +18,22 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { mainListItems } from './listitems';
+import {mainListItems} from './listitems';
 import Chart from './chart';
 import Deposits from './deposits';
 import Orders from './orders';
 import {Route, Switch} from 'react-router';
+import {Redirect} from "react-router-dom";
 import CardListComponent from "../../component/card-list/card-list.component";
 import AddInventoryItemComponent from "../../component/add-inventory-items/add-inventory-items.component";
 
 import Auth from '../auth/auth';
 import NotFound from "../../shared/404/not-found";
 import CustomTable from "../../component/table/table";
+import AddCentersComponent from "../../component/add-centers/add-centers.component";
+import API from "../../service/api.service";
+import AuthService from "../auth/service/authService";
+import GlobalStore from "../../store/globalStore";
 
 function MadeWithLove() {
     return (
@@ -130,9 +135,22 @@ export default function Dashboard(props) {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+    const logout = () => {
+        API('DELETE', 'users/sign_out ').subscribe(() => {
+            console.log(this);
+            AuthService.logout();
+            AuthService.removeUser();
+            setAuth();
+        });
+    }
+
+    const setAuth = () => {
+        GlobalStore.setAuth(AuthService.isAuthenticed);
+    };
+
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
@@ -142,16 +160,19 @@ export default function Dashboard(props) {
                         onClick={handleDrawerOpen}
                         className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
                     <IconButton color="inherit">
                         {/*<Badge badgeContent={4} color="secondary">*/}
-                            {/*<NotificationsIcon />*/}
+                        {/*<NotificationsIcon />*/}
                         {/*</Badge>*/}
                         <ExitToAppIcon/>
+                    </IconButton>
+                    <IconButton onClick={logout}>
+                        Logout
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -164,45 +185,46 @@ export default function Dashboard(props) {
             >
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>{mainListItems}</List>
             </Drawer>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                <div className={classes.appBarSpacer}/>
                 <Container maxWidth="lg" className={classes.container}>
                     <Switch>
                         <Route path='/orders' component={CardListComponent}/>
                         <Route path="/add" component={AddInventoryItemComponent}/>
-                        <Route path="/managers" component={CustomTable}/>
-                        <Route path="/delivery" component={CustomTable}/>
-                        <Route path="/centers" component={CustomTable}/>
-                        <Route component={NotFound}/>
+                        {/*<Route path="/managers" component={CustomTable}/>*/}
+                        {/*<Route path="/delivery" component={CustomTable}/>*/}
+                        {/*<Route path="/centers" component={CustomTable}/>*/}
+                        <Route path="/centers" component={AddCentersComponent}/>
+                        <Route path="/404" component={NotFound}/>
                     </Switch>
                     {/*<Grid container spacing={3}>*/}
-                        {/*/!* Chart *!/*/}
-                        {/*<Grid item xs={12} md={8} lg={9}>*/}
-                            {/*<Paper className={fixedHeightPaper}>*/}
-                                {/*<Chart />*/}
-                            {/*</Paper>*/}
-                        {/*</Grid>*/}
-                        {/*/!* Recent Deposits *!/*/}
-                        {/*<Grid item xs={12} md={4} lg={3}>*/}
-                            {/*<Paper className={fixedHeightPaper}>*/}
-                                {/*<Deposits />*/}
-                            {/*</Paper>*/}
-                        {/*</Grid>*/}
-                        {/*/!* Recent Orders *!/*/}
-                        {/*<Grid item xs={12}>*/}
-                            {/*<Paper className={classes.paper}>*/}
-                                {/*<Orders />*/}
-                            {/*</Paper>*/}
-                        {/*</Grid>*/}
+                    {/*/!* Chart *!/*/}
+                    {/*<Grid item xs={12} md={8} lg={9}>*/}
+                    {/*<Paper className={fixedHeightPaper}>*/}
+                    {/*<Chart />*/}
+                    {/*</Paper>*/}
+                    {/*</Grid>*/}
+                    {/*/!* Recent Deposits *!/*/}
+                    {/*<Grid item xs={12} md={4} lg={3}>*/}
+                    {/*<Paper className={fixedHeightPaper}>*/}
+                    {/*<Deposits />*/}
+                    {/*</Paper>*/}
+                    {/*</Grid>*/}
+                    {/*/!* Recent Orders *!/*/}
+                    {/*<Grid item xs={12}>*/}
+                    {/*<Paper className={classes.paper}>*/}
+                    {/*<Orders />*/}
+                    {/*</Paper>*/}
+                    {/*</Grid>*/}
                     {/*</Grid>*/}
                 </Container>
-                <MadeWithLove />
+                <MadeWithLove/>
             </main>
         </div>
     );

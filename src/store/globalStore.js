@@ -12,8 +12,6 @@ class GlobalStore extends ObservableStore {
     setAuth(auth) {
         this.setState({ auth }, 'SET_AUTH');
     }
-
-
 }
 
 export default new GlobalStore();

@@ -38,37 +38,37 @@ export const mainListItems = (
                 <ListItemText primary="Add Inventory Items"/>
             </ListItem>
         </Link>
-        <Link to={'/managers'}>
-            <ListItem button>
-                <ListItemIcon>
-                    <PeopleIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Managers"/>
-            </ListItem>
-        </Link>
-        <Link to={'/delivery'}>
-            <ListItem button>
-                <ListItemIcon>
-                    <PeopleIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Delivery Support"/>
-            </ListItem>
-        </Link>
-        <Link to={'/analytics'}>
-            <ListItem button>
-                <ListItemIcon>
-                    <BarChartIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Analytics"/>
-            </ListItem>
-        </Link>
-        <Link to={'/hotlines'}>
-            <ListItem button>
-                <ListItemIcon>
-                    <AssignmentIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Hotlines"/>
-            </ListItem>
-        </Link>
+        {/*<Link to={'/managers'}>*/}
+        {/*    <ListItem button>*/}
+        {/*        <ListItemIcon>*/}
+        {/*            <PeopleIcon/>*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary="Managers"/>*/}
+        {/*    </ListItem>*/}
+        {/*</Link>*/}
+        {/*<Link to={'/delivery'}>*/}
+        {/*    <ListItem button>*/}
+        {/*        <ListItemIcon>*/}
+        {/*            <PeopleIcon/>*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary="Delivery Support"/>*/}
+        {/*    </ListItem>*/}
+        {/*</Link>*/}
+        {/*<Link to={'/analytics'}>*/}
+        {/*    <ListItem button>*/}
+        {/*        <ListItemIcon>*/}
+        {/*            <BarChartIcon/>*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary="Analytics"/>*/}
+        {/*    </ListItem>*/}
+        {/*</Link>*/}
+        {/*<Link to={'/hotlines'}>*/}
+        {/*    <ListItem button>*/}
+        {/*        <ListItemIcon>*/}
+        {/*            <AssignmentIcon/>*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary="Hotlines"/>*/}
+        {/*    </ListItem>*/}
+        {/*</Link>*/}
     </div>
 );
