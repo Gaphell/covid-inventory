@@ -39,10 +39,7 @@ const MyButton = styled(({color, ...other}) => <Button {...other} />)({
 function StayHomeStaySafe() {
     return (
         <div className="info">
-            <Typography align="center">
-                <h1> Lockdown Charo</h1>
-            </Typography>
-
+           <h1 align="center"> Lockdown Charo</h1>
            <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
            <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione sapiente veniam voluptas voluptate.</p>
         </div>

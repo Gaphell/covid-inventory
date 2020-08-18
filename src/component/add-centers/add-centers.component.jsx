@@ -10,20 +10,20 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import API from "../../service/api.service";
 import noop from "../../shared/noop/noop";
+import Location from "../../shared/map/map";
+
 
 export default function AddCentersComponent(props) {
     let retailerForm = FormBuilder.group({});
     const [service_areas, setArea] = useState([])
 
     useEffect(() => {
-        debugger;
-        serviceArea();
+        // serviceArea();
         setForm(user);
     }, []);
 
     const serviceArea = () => {
         API('GET', 'service_areas').subscribe(response => {
-            debugger;
             setArea(response.data.service_areas);
         })
     }
@@ -168,6 +168,7 @@ export default function AddCentersComponent(props) {
                         />
                     </div>
                 )}/>
+            <Location/>
             <Button
                 onClick={handleSubmit}
                 className="custom-button"
