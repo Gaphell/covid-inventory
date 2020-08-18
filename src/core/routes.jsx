@@ -11,7 +11,7 @@ import AuthService from "../containers/auth/service/authService";
 
 class Routes extends React.Component {
     state = {
-        auth: AuthService.isAuthenticed
+        auth: AuthService.isAuthenticated
     };
     storeSub = null;
 

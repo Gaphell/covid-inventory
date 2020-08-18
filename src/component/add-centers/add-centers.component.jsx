@@ -18,14 +18,14 @@ export default function AddCentersComponent(props) {
     const [service_areas, setArea] = useState([])
 
     useEffect(() => {
-        // serviceArea();
-        setForm(user);
+        serviceArea();
     }, []);
 
     const serviceArea = () => {
         API('GET', 'service_areas').subscribe(response => {
             setArea(response.data.service_areas);
-        })
+            // setForm(user);
+        });
     }
 
     const user = {
@@ -45,7 +45,7 @@ export default function AddCentersComponent(props) {
 
     const setForm = (user) => {
         // for edit
-        // retailerForm.patchValue(user);
+        retailerForm.patchValue(user);
     };
 
     const goToCenters = () => {
@@ -114,10 +114,10 @@ export default function AddCentersComponent(props) {
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
-                                            {/*{*/}
-                                            {/*    service_areas.map(({id, name}) => <MenuItem*/}
-                                            {/*        value={id}>{name}</MenuItem>)*/}
-                                            {/*}*/}
+                                            {
+                                                service_areas.map(({id, name}) => <MenuItem
+                                                    value={id}>{name}</MenuItem>)
+                                            }
                                         </Select>
                                         <span>{touched && hasError('required') && 'This field is required'}</span>
                                     </FormControl>

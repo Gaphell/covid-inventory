@@ -39,9 +39,12 @@ const MyButton = styled(({color, ...other}) => <Button {...other} />)({
 function StayHomeStaySafe() {
     return (
         <div className="info">
-           <h1 align="center"> Lockdown Charo</h1>
-           <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
-           <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione sapiente veniam voluptas voluptate.</p>
+            <h1 align="center"> Lockdown Charo</h1>
+            <img src={require('../../assets/images/cart.svg')} className="cart-img" alt="Cart Image"/>
+            <p className="app-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium distinctio
+                dolores enim sit veritatis. Accusamus alias animi aspernatur beatae consectetur culpa debitis delectus
+                dicta dolor, doloremque explicabo facere magnam minima natus nemo, nesciunt numquam quibusdam ratione
+                sapiente veniam voluptas voluptate.</p>
         </div>
     );
 }
@@ -81,8 +84,8 @@ export default class Auth extends Component {
     };
 
     setAuth = () => {
-        // GlobalStore.setAuth(AuthService.isAuthenticed);
-        GlobalStore.setAuth(true);
+        GlobalStore.setAuth(AuthService.isAuthenticated);
+        // GlobalStore.setAuth(true);
     };
 
     handleReset = () => {
@@ -92,22 +95,18 @@ export default class Auth extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.loginForm.valid) {
-            this.setAuth();
-            this.userLoggedInNotification();
-            this.props.history.push('/orders');
-            // API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
-            //     AuthService.login(response.headers.authorization);
-            //     AuthService.setUser(JSON.stringify(response.data.user));
-            //     this.userLoggedInNotification();
-            //     this.setAuth();
-            //     this.props.history.push('/orders')
-            // }, err => {
-            //     this.props.history.push('/');
-            // });
+            API('POST', 'users/sign_in', {user: this.loginForm.value}).subscribe(response => {
+                AuthService.login(response.headers.authorization);
+                AuthService.setUser(JSON.stringify(response.data.user));
+                this.userLoggedInNotification();
+                this.setAuth();
+                this.props.history.push('/orders')
+            }, err => {
+                this.props.history.push('/');
+            });
         } else {
             this.loginForm.markAsTouched();
         }
-        console.log("Form values", this.loginForm.value);
     };
 
     goToSignup = (action) => {
@@ -208,7 +207,7 @@ export default class Auth extends Component {
                                     </form>
                                 </div>
                             </Grid>
-                            <Grid item sm={12}  md={7} >
+                            <Grid item sm={12} md={7}>
                                 <div className="auth-info">
                                     <StayHomeStaySafe/>
                                 </div>
@@ -216,8 +215,7 @@ export default class Auth extends Component {
                         </Grid>
                     </div>
                 </div>
-                </Container>
-                    )
-                    ;
-                    }
-                    }
+            </Container>
+        );
+    }
+}

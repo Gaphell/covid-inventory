@@ -3,12 +3,12 @@ import {Validators} from "react-reactive-form";
 
 export const SignInConfig = {
     controls: {
-        mobile: {
+        email: {
             options: {
                 validators: Validators.required
             },
             render: FormInput,
-            meta: {label: "User ID", type: "text"}
+            meta: {label: "Email", type: "text"}
         },
         password: {
             options: {

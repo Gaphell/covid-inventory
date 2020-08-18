@@ -2,11 +2,11 @@ import {Observable} from 'rxjs'
 import axios from 'axios';
 import AuthService from "../containers/auth/service/authService";
 
-axios.defaults.baseURL = 'https://of.selise.dev/api/v1';
+axios.defaults.baseURL = 'https://lockdown.whs.selise.dev/api/v1';
 
 const API = (method, url, data, params, response = 'json') => {
     const headers = {};
-    if (AuthService.isAuthenticed) {
+    if (AuthService.isAuthenticated) {
         headers['Authorization'] = AuthService.token;
     }
     return new Observable(subscriber => {
