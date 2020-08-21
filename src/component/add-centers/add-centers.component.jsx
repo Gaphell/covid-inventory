@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './add-centers.styles.scss';
-import IconButton from "@material-ui/core/IconButton";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import {FieldArray, FieldControl, FieldGroup, FormBuilder, Validators} from "react-reactive-form";
+import {FieldControl, FieldGroup, FormBuilder, Validators} from "react-reactive-form";
 import Input from "@material-ui/core/Input";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,21 +9,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import API from "../../service/api.service";
+import noop from "../../shared/noop/noop";
 import Location from "../../shared/map/map";
 import Grid from "@material-ui/core/Grid";
 
 
 export default function AddCentersComponent(props) {
-    let keyCount = 0;
     let retailerForm = FormBuilder.group({});
     const [service_areas, setArea] = useState([])
-    // const addItem = () => {
-    //     retailerForm.push(createItem());
-    // }
 
     useEffect(() => {
+        // serviceArea();
         setForm(user);
-    });
+    }, []);
+
+    const serviceArea = () => {
+        API('GET', 'service_areas').subscribe(response => {
+            setArea(response.data.service_areas);
+        })
+    }
 
     const user = {
         email: 'ps@gmail.com',
@@ -59,21 +60,8 @@ export default function AddCentersComponent(props) {
         console.log({invalid: retailerForm.value})
     };
 
-    const removeItem = (index) => {
-        retailerForm.removeAt(index);
-    };
-
     return (
         <div className="p-20">
-            {/*<IconButton aria-label="add" color="primary" onClick={addItem}>*/}
-            {/*    <AddCircleIcon/>*/}
-            {/*</IconButton>*/}
-            {/*<FieldArray*/}
-            {/*    control={retailerForm}*/}
-            {/*    render={({controls}) => {*/}
-            {/*        return (*/}
-            {/*            controls.map((itemControl, index) => (*/}
-            {/*                <div>*/}
             <Grid container>
                 <Grid item md={6} sm={12}>
                     <FieldGroup
@@ -200,13 +188,6 @@ export default function AddCentersComponent(props) {
                     <Location/>
                 </Grid>
             </Grid>
-            {/*<IconButton aria-label="delete" color="primary"*/}
-            {/*            onClick={() => removeItem(index)}>*/}
-            {/*    <DeleteIcon/>*/}
-            {/*</IconButton>*/}
-            {/*</div>*/}
-            {/*)))*/}
-            {/*}}/>*/}
             <Button
                 onClick={handleSubmit}
                 className="custom-button"
