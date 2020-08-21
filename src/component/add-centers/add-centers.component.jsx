@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import API from "../../service/api.service";
 import Location from "../../shared/map/map";
+import Grid from "@material-ui/core/Grid";
 
 
 export default function AddCentersComponent(props) {
@@ -63,7 +64,7 @@ export default function AddCentersComponent(props) {
     };
 
     return (
-        <div>
+        <div className="p-20">
             {/*<IconButton aria-label="add" color="primary" onClick={addItem}>*/}
             {/*    <AddCircleIcon/>*/}
             {/*</IconButton>*/}
@@ -73,114 +74,132 @@ export default function AddCentersComponent(props) {
             {/*        return (*/}
             {/*            controls.map((itemControl, index) => (*/}
             {/*                <div>*/}
-            <FieldGroup
-                control={retailerForm}
-                render={() => (
-                    <div>
-                        <FieldControl
-                            name="name"
-                            options={{validators: Validators.required}}
-                            render={({handler, touched, hasError}) => (
-                                <div>
-                                    <label>Name: </label>
-                                    <Input {...handler()}/>
-                                    <span>{touched && hasError('required') && 'This field is required'}</span>
-                                </div>
-                            )}/>
-                        <FieldControl
-                            options={{validators: Validators.required}}
-                            name="email"
-                            render={({handler, touched, hasError}) => (
-                                <div>
-                                    <label>Email: </label>
-                                    <Input {...handler()}/>
-                                    <span>{touched && hasError('required') && 'This field is required'}</span>
-                                </div>
-                            )}/>
-                        <FieldControl
-                            options={{validators: Validators.required}}
-                            name="mobile"
-                            render={({handler, touched, hasError}) => (
-                                <div>
-                                    <label>Mobile#: </label>
-                                    <Input {...handler()}/>
-                                    <span>{touched && hasError('required') && 'This field is required'}</span>
-                                </div>
-                            )}/>
-                        <FieldControl
-                            name="service_area_id"
-                            render={({handler, touched, hasError}) => (
-                                <div>
-                                    <label>Service Area: </label>
-                                    {/*<Input {...handler()}/>*/}
-                                    <FormControl variant="outlined" className="width-15">
-                                        <InputLabel
-                                            id="demo-simple-select-outlined-label">Service
-                                            Area</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="demo-simple-select-outlined"
-                                            label="Service Area"
-                                            {...handler()}
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            {/*{*/}
-                                            {/*    service_areas?.map(({id, name}) => (*/}
-                                            {/*        <MenuItem value={id}>{name}</MenuItem>*/}
-                                            {/*    ))*/}
-                                            {/*}*/}
-                                        </Select>
-                                        <span>{touched && hasError('required') && 'This field is required'}</span>
-                                    </FormControl>
-                                </div>
-                            )}/>
-                        <FieldGroup
-                            name="retailer_attributes"
-                            render={({handler, touched, hasError}) => (
-                                <Container>
-                                    <FieldControl
-                                        name="name"
-                                        options={{validators: Validators.required}}
-                                        render={({handler, touched, hasError}) => (
-                                            <Container>
-                                                <label>Retailer Name: </label>
-                                                <Input {...handler()}/>
-                                                <span>{touched && hasError('required') && 'This field is required'}</span>
-                                            </Container>
-                                        )}/>
-                                    <FieldGroup
-                                        name="location_attributes"
-                                        render={() => (
-                                            <Container>
-                                                <FieldControl
-                                                    name="longitude"
-                                                    render={({handler, touched, hasError}) => (
-                                                        <Container>
-                                                            <label>Longitude: </label>
-                                                            <Input {...handler()}/>
-                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
-                                                        </Container>
-                                                    )}
-                                                />
-                                                <FieldControl
-                                                    name="latitude"
-                                                    render={({handler, touched, hasError}) => (
-                                                        <Container>
-                                                            <label>Latitude: </label>
-                                                            <Input {...handler()}/>
-                                                            <span>{touched && hasError('required') && 'This field is required'}</span>
-                                                        </Container>
-                                                    )}
-                                                />
-                                            </Container>
-                                        )}/>
-                                </Container>
-                            )}
-                        />
-                    </div>
-                )}/>
+            <Grid container>
+                <Grid item md={6} sm={12}>
+                    <FieldGroup
+                        control={retailerForm}
+                        render={() => (
+                            <div className="row">
+                                <FieldControl
+                                    name="name"
+                                    options={{validators: Validators.required}}
+                                    render={({handler, touched, hasError}) => (
+                                        <div className="form-group">
+                                            <label>Name: </label>
+                                            <Input className="form-field" disableUnderline={true} {...handler()}/>
+                                            <span className="focus-border"><i></i></span>
+                                            <span
+                                                className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                        </div>
+                                    )}/>
+                                <FieldControl
+                                    options={{validators: Validators.required}}
+                                    name="email"
+                                    render={({handler, touched, hasError}) => (
+                                        <div className="form-group">
+                                            <label>Email: </label>
+                                            <Input className="form-field" disableUnderline={true} {...handler()}/>
+                                            <span className="focus-border"><i></i></span>
+                                            <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                        </div>
+                                    )}/>
+                                <FieldControl
+                                    options={{validators: Validators.required}}
+                                    name="mobile"
+                                    render={({handler, touched, hasError}) => (
+                                        <div className="form-group">
+                                            <label>Phone Number: </label>
+                                            <Input className="form-field" disableUnderline={true} {...handler()}/>
+                                            <span className="focus-border"><i></i></span>
+                                            <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                        </div>
+                                    )}/>
+                                    <div className="form-group">
+                                <FieldControl
+                                    name="service_area_id"
+                                    render={({handler, touched, hasError}) => (
+                                        <div>
+                                            <p>Service Area: </p>
+                                            {/*<Input {...handler()}/>*/}
+                                            <FormControl>
+                                                <InputLabel
+                                                    id="demo-simple-select-outlined-label"> </InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-outlined-label"
+                                                    id="demo-simple-select-outlined form-field"
+                                                    {...handler()}
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    {/*{*/}
+                                                    {/*    service_areas?.map(({id, name}) => (*/}
+                                                    {/*        <MenuItem value={id}>{name}</MenuItem>*/}
+                                                    {/*    ))*/}
+                                                    {/*}*/}
+                                                </Select>
+                                                <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                            </FormControl>
+                                        </div>
+                                    )}/>
+                                    </div>
+                                <FieldGroup
+                                    name="retailer_attributes"
+                                    render={({handler, touched, hasError}) => (
+                                        <div>
+                                            <FieldControl
+                                                name="name"
+                                                options={{validators: Validators.required}}
+                                                render={({handler, touched, hasError}) => (
+                                                    <div className="form-group">
+                                                        <label>Retailer Name: </label>
+                                                        <Input className="form-field"
+                                                               disableUnderline={true} {...handler()}/>
+                                                        <span className="focus-border"><i></i></span>
+                                                        <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                                    </div>
+                                                )}/>
+                                            <FieldGroup
+                                                name="location_attributes"
+                                                render={() => (
+                                                    <div>
+                                                        <FieldControl
+                                                            name="longitude"
+                                                            render={({handler, touched, hasError}) => (
+                                                                <div className="form-group">
+                                                                    <label>Longitude: </label>
+                                                                    <Input className="form-field"
+                                                                           disableUnderline={true} {...handler()}/>
+                                                                    <span className="focus-border"><i></i></span>
+                                                                    <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                                                </div>
+                                                            )}
+                                                        />
+                                                        <FieldControl
+                                                            name="latitude"
+                                                            render={({handler, touched, hasError}) => (
+                                                                <div className="form-group">
+                                                                    <label>Latitude: </label>
+                                                                    <Input className="form-field"
+                                                                           disableUnderline={true} {...handler()}/>
+                                                                    <span className="focus-border"><i></i></span>
+                                                                    <span className="warn-color">{touched && hasError('required') && 'This field is required'}</span>
+                                                                </div>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                )}/>
+                                        </div>
+                                    )}
+                                />
+
+                            </div>
+                        )}/>
+                </Grid>
+                <Grid item md={6} sm={12}>
+                    <Location/>
+                </Grid>
+            </Grid>
             {/*<IconButton aria-label="delete" color="primary"*/}
             {/*            onClick={() => removeItem(index)}>*/}
             {/*    <DeleteIcon/>*/}
@@ -188,7 +207,6 @@ export default function AddCentersComponent(props) {
             {/*</div>*/}
             {/*)))*/}
             {/*}}/>*/}
-            <Location/>
             <Button
                 onClick={handleSubmit}
                 className="custom-button"

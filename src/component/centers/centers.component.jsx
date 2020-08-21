@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './centers.styles.scss';
 import {FormBuilder } from "react-reactive-form";
 import Button from "@material-ui/core/Button";
-import {Route, Switch} from 'react-router';
 import CustomTable from "../../component/table/table";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,7 +9,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddCentersComponent from "../add-centers/add-centers.component";
+import Slide from '@material-ui/core/Slide';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="down" ref={ref} {...props} />;
+});
 
 export default function CentersComponent(props) {
 
@@ -64,7 +67,15 @@ export default function CentersComponent(props) {
 
     return (
         <div>
-            <Dialog onClose={handleClose} open={open}>
+            <Dialog onClose={handleClose} open={open}
+                    TransitionComponent={Transition}
+                    maxWidth={"md"}
+                    fullWidth={true}
+                    disableBackdropClick = {true}
+                    disableEscapeKeyDown = {true}
+                    scroll = {"paper"}
+            >
+                <DialogTitle>Invite New Stock Center</DialogTitle>
                 <DialogContent>
                     <AddCentersComponent/>
                 </DialogContent>
@@ -86,7 +97,6 @@ export default function CentersComponent(props) {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <CustomTable parent={props}/>
             <Button
                 onClick={handleClickOpen}
                 className="custom-button"
@@ -95,6 +105,7 @@ export default function CentersComponent(props) {
                 color="primary">
                 Create New Center
             </Button>
+            <CustomTable parent={props}/>
         </div>
     )
 }

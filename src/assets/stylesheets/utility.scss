@@ -16,3 +16,122 @@ body {
 .mt-16 {
   margin-top: 16px !important;
 }
+
+.p-20 {
+  padding: 20px;
+}
+
+.warn-color {
+  color: $warn-color;
+  font-size: 12px;
+}
+
+.row {
+  .form-group {
+    width: 80%;
+    margin-bottom: 16px;
+  }
+
+  .MuiInput-root {
+    all: unset !important;
+
+    &.form-field {
+      position: relative !important;
+
+      .MuiInput-input {
+        border: 1px solid $silver-chalice !important;
+        padding: 14px !important;
+        transition: 0.4s !important;
+        background: transparent !important;
+      }
+
+      label {
+        position: absolute !important;
+        left: 14px !important;
+        width: 100% !important;
+        top: 10px !important;
+        color: #333333 !important;
+        transition: 0.3s !important;
+        z-index: -1 !important;
+      }
+
+      .focus-border {
+        &::before, &::after {
+          content: "" !important;
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 0 !important;
+          height: 2px !important;
+          background-color: $primary-color !important;
+          transition: 0.3s !important;
+        }
+
+        &::after {
+          top: auto !important;
+          bottom: 0 !important;
+          left: auto !important;
+          right: 0 !important;
+        }
+
+        i {
+          &::before, &::after {
+            content: "";
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 2px !important;
+            height: 0 !important;
+            background-color: $primary-color !important;
+            transition: 0.4s !important;
+          }
+
+          &::after {
+            left: auto !important;
+            right: 0 !important;
+            top: auto !important;
+            bottom: 0 !important;
+          }
+        }
+      }
+
+      &.Mui-focused {
+        .MuiInput-input {
+          border-color: $primary-color !important;
+        }
+
+        ~ .focus-border:before, ~ .focus-border:after {
+          width: 100% !important;
+          transition: 0.3s !important;
+        }
+
+        ~ .focus-border i:before, ~ .focus-border i:after {
+          height: 100% !important;
+          transition: 0.4s !important;
+        }
+
+        ~ label {
+          top: -18px !important;
+          left: 0 !important;
+          font-size: 12px !important;
+          color: $primary-color !important;
+          transition: 0.3s !important;
+        }
+      }
+    }
+  }
+}
+
+.MuiFormControl-root {
+  width: 100% !important;
+
+  .MuiInput-underline:before, .MuiInput-underline:after {
+    border: none !important;
+  }
+
+  .MuiSelect-select {
+    height: 35px;
+    border: 1px solid $silver-chalice;
+    width: 100% !important;
+  }
+}
